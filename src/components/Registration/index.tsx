@@ -1,4 +1,5 @@
 import './index.css';
+import { FC, ChangeEvent, FormEvent } from 'react';
 import { useState, useEffect } from 'react';
 import userLogo from './user.svg';
 
@@ -9,7 +10,7 @@ interface User {
   passwordConfirm: string;
 }
 
-export const Registration: React.FC = () => {
+export const Registration: FC = () => {
   const [user, setUser] = useState<User>({
     username: '',
     email: '',
@@ -17,7 +18,7 @@ export const Registration: React.FC = () => {
     passwordConfirm: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
@@ -30,13 +31,12 @@ export const Registration: React.FC = () => {
     }
   }, [user.email]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (user.password !== user.passwordConfirm) {
       return alert('Hesla se neshodují!');
     }
     setUser({ username: '', email: '', password: '', passwordConfirm: '' });
-    console.log(user);
   };
 
   return (
